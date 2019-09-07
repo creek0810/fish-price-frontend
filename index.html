@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>魚價查詢系統</title>
+    <!-- main -->
+    <link rel="stylesheet" href="./css/general.css">
+    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js" data-main="js/main"></script>
+    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="tab_bar">
+            <button class="btn custom_btn custom_btn_active" id="oneday">單一時間</button>
+            <button class="btn custom_btn" id="period">區段時間</button>
+        </div>
+        <div class="query_form">
+            <div class="form_container" id="oneday_form">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="date">時間選擇</label>
+                        <input class="form-control" type="date" id="date">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="oneday_market">市場選擇</label>
+                        <input id="oneday_market"  class="form-control" list="oneday_marketList">
+                        <datalist id="oneday_marketList"></datalist>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="oneday_fish">魚種選擇</label>
+                        <input id="oneday_fish"  class="form-control" list="oneday_fishList" >
+                        <datalist id="oneday_fishList"></datalist>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <button class="btn btn-primary" id ="oneday_execution">查詢資料</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form_container hide" id="period_form">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="startDate">開始時間</label>
+                        <input class="form-control" type="date" id="startDate">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="endDate">結束時間</label>
+                        <input class="form-control" type="date" id="endDate">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="period_market">市場選擇</label>
+                        <input id="period_market"  class="form-control" list="period_marketList">
+                        <datalist id="period_marketList"></datalist>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="period_fish">魚種選擇</label>
+                        <input id="period_fish"  class="form-control" list="period_fishList" >
+                        <datalist id="period_fishList"></datalist>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <button class="btn btn-primary" id ="period_execution">查詢資料</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info_tab">
+            <button class="btn custom_btn custom_btn_active" id="show_table">詳細資料</button>
+            <button class="btn custom_btn" id="show_chart">圖表</button>
+        </div>
+        <div id="show_chart_container" style="display:none;">
+            <div id="oneday_chart">
+                <div class="top_container">
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">總金額比例圖</div></div> 
+                        <div class="main_chart_container"><canvas id="canvasProfit"></canvas></div>
+                    </div>
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">銷售量比例圖</div></div>
+                        <div class="main_chart_container"><canvas id="oneday_canvasVolume"></canvas></div>
+                    </div>
+                </div>
+                <div class="bot_container">
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">價格比較圖</div></div>
+                        <div class="main_chart_container"><canvas id="oneday_canvasPrice"></canvas></div>
+                    </div>
+                    <div style="width: 45%;height: 90%;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="period_chart" style="display:none;">
+                <div class="top_container">
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">價格折線圖</div></div>
+                        <div class="main_chart_container"><canvas id="period_canvasPrice"></canvas></div>
+                    </div>
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">交易量折線圖</div></div>
+                        <div class="main_chart_container"><canvas id="period_canvasVolume"></canvas></div>
+                    </div>
+                </div>
+                <div class="bot_container">
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">銷售量比例圖</div></div>
+                        <div class="main_chart_container"><canvas id="canvasSalesVolumeDoughnut"></canvas></div>
+                    </div>
+                    <div class="inner_chart_container">
+                        <div class="title_container"><div class="title">總金額比例圖</div></div>
+                        <div class="main_chart_container"><canvas id="canvasTotalAmountDoughnut"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="show_table_container">
+            <div class="table_container" id="oneday_table">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="col-xs-1">市場</th>
+                            <th class="col-xs-1">平均價格</th>
+                            <th class="col-xs-1">交易量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oneday_table_data"></tbody>
+                </table>
+            </div>
+            <div class="table_container" id="period_table" style="display:none;">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="col-xs-1">市場</th>
+                            <th class="col-xs-1">日期</th>
+                            <th class="col-xs-1">平均價格</th>
+                            <th class="col-xs-1">交易量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="period_table_data"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
