@@ -15,6 +15,8 @@ define([
       this.setPanelCallBack = config.setPanel;
       this.getFishListCallBack = config.getFishList;
       this.getPeriodDataCallBack = config.getPeriodData;
+      // controller mode var
+      this.mode = config.mode;
       // listen to model
       this.listenTo(this.model, "change", this.renderMarketList);
     },
