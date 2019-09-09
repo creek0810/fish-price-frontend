@@ -4,7 +4,7 @@ define([
   let PeriodForm = Backbone.View.extend({
     el: "#app",
     events: {
-      "click #period": "setPanel",
+      "click #period": "setForm",
       "click #period_execution": "getPeriodData",
       "change #startDate": "getFishList",
       "change #endDate": "getFishList",
@@ -12,7 +12,7 @@ define([
     },
     initialize: function(config) {
       // controller function
-      this.setPanelCallBack = config.setPanel;
+      this.setFormCallBack = config.setForm;
       this.getFishListCallBack = config.getFishList;
       this.getPeriodDataCallBack = config.getPeriodData;
       // controller mode var
@@ -49,8 +49,8 @@ define([
       const fish = document.getElementById("period_fish").value;
       this.getPeriodDataCallBack(startDate, endDate, market, fish);
     },
-    setPanel: function() {
-      this.setPanelCallBack(this);
+    setForm: function() {
+      this.setFormCallBack(this);
     },
     toggle: function(show) {
       if(show){

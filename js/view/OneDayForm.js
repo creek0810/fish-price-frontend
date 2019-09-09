@@ -4,14 +4,14 @@ define([
   let OneDayForm = Backbone.View.extend({
     el: "#app",
     events: {
-      "click #oneday": "setPanel",
+      "click #oneday": "setForm",
       "click #oneday_execution": "getOneDayData",
       "change #date": "getFishList",
       "change #oneday_market": "renderFishList"
     },
     initialize: function(config) {
       // controller function
-      this.setPanelCallBack = config.setPanel;
+      this.setFormCallBack = config.setForm;
       this.getFishListCallBack = config.getFishList;
       this.getOneDayDataCallBack = config.getOneDayData;
       // controller mode var
@@ -35,8 +35,8 @@ define([
         document.getElementById("oneday_fishList").innerHTML = result;
       }
     },
-    setPanel: function() {
-      this.setPanelCallBack(this);
+    setForm: function() {
+      this.setFormCallBack(this);
     },
     getFishList: function(e) {
       const date = e.target.value;
