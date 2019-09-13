@@ -15,7 +15,7 @@ define([
       this.setFormCallBack = config.setForm;
       this.getFishListCallBack = config.getFishList;
       this.getPeriodDataCallBack = config.getPeriodData;
-      // controller mode var
+      // add id to this form which will determine the mode of table and chart panel
       this.mode = config.mode;
       // listen to model
       this.listenTo(this.model, "change", this.renderMarketList);
@@ -39,6 +39,7 @@ define([
     getFishList: function() {
       const startDate = document.getElementById("startDate").value;
       let endDate = document.getElementById("endDate").value;
+      // avoid the condition that endDate field is empty
       endDate = (endDate === "") ? startDate : endDate;
       this.getFishListCallBack(this.model, startDate, endDate);
     },

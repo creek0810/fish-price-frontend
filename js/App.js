@@ -56,7 +56,9 @@ define([
     setForm: function(curForm){
       Object.keys(this.view.form).map((key) => {
         if (curForm === this.view.form[key]) {
+          // set form
           this.view.form[key].toggle(true);
+          // set panel mode
           Object.keys(this.view.panel).map(key => {
             this.view.panel[key].setMode(curForm.mode);
           });

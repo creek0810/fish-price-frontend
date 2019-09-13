@@ -25,13 +25,13 @@ define([
         this.periodChart = [];
       },
       renderChart: function (ctx, data, type) {
-        return new Chart(ctx, {  
+        return new Chart(ctx, {
           type: type,
           data: data,
           options: {
             scales: {
               xAxes: [{
-                display: (type == "doughnut") ? false : true 
+                display: (type == "doughnut") ? false : true
               }],
               yAxes: [{
                 display: (type == "doughnut") ? false : true

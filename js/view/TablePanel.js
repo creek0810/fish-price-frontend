@@ -17,7 +17,7 @@ define([
       const data = this.model.get("periodData").get("data");
       const result = Object.keys(data).reduce((acc, marketName) => {
         const marketResult = data[marketName].reduce((acc, data) => {
-          return `${acc} 
+          return `${acc}
             <tr>
               <td>${marketName}</td>
               <td>${data.date}</td>
@@ -33,7 +33,7 @@ define([
     renderOneDayTable: function() {
       const data = this.model.get("oneDayData").get("data");
       const result = Object.keys(data).reduce((acc, cur) => {
-        return `${acc} 
+        return `${acc}
           <tr>
             <td>${cur}</td>
             <td>${data[cur].price}</td>
@@ -44,6 +44,7 @@ define([
       document.getElementById("oneday_table_data").innerHTML = result;
     },
     setMode: function(mode) {
+      // this function will determine the table container to show
       const container = {
         oneDay: "oneday_table",
         period: "period_table",

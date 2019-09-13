@@ -14,7 +14,7 @@ define([
       this.setFormCallBack = config.setForm;
       this.getFishListCallBack = config.getFishList;
       this.getOneDayDataCallBack = config.getOneDayData;
-      // controller mode var
+      // add id to this form which will determine the mode of table and chart panel
       this.mode = config.mode;
       // listen to model
       this.listenTo(this.model, "change", this.renderMarketList);
