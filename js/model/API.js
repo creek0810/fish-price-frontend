@@ -3,9 +3,9 @@ define([
 ], function(Backbone) {
   let API = Backbone.Model.extend({
     defaults: {
-      "fishList": "http://140.121.197.197:4010/fish",
-      "oneDayData": "http://140.121.197.197:4010/fish",
-      "periodData": "http://140.121.197.197:4010/fish"
+      "fishList": "http://140.121.197.196/service/fishPriceBackend/fish",
+      "oneDayData": "http://140.121.197.196/service/fishPriceBackend/fish",
+      "periodData": "http://140.121.197.196/service/fishPriceBackend/fish"
     },
     getFishListUrl: function(startDate, endDate){
       return `${this.get("fishList")}/${startDate}/${endDate}`;
